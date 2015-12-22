@@ -1,0 +1,23 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # --- plugin asset
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule asset/(.*)/(.*)/(.*)\.plugin\.(.*)$ plugin.php?type=$1&plugin=$2&file=$3&ext=$4 [L]
+    
+    # --- default rewrite
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule (.*)$ index.php
+</IfModule>
+
+<files *.ini>
+    Order deny,allow
+    Deny from all
+</files>
+
+php_value upload_max_filesize 40M
+php_value post_max_size       40M
+php_value max_execution_time  600
+php_value max_input_time      600
+php_value memory_limit        128M
